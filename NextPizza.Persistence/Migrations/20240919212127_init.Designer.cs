@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace NextPizza.Persistence.Migrations
 {
     [DbContext(typeof(NextPizzaDbContext))]
-    [Migration("20240919162106_init")]
+    [Migration("20240919212127_init")]
     partial class init
     {
         /// <inheritdoc />

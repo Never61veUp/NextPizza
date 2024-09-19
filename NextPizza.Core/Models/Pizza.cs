@@ -23,23 +23,23 @@ namespace NextPizza.Core.Models
         public DoughType DoughType { get; }
         public Size Size { get; }
 
-        private Pizza(List<string> ingredients, Size size, DoughType doughType, bool isVegan)
+        private Pizza(/*List<string> ingredients, Size size, DoughType doughType,*/ bool isVegan)
         {
-            Ingredients = ingredients;
-            Size = size;
+            //Ingredients = ingredients;
+            //Size = size;
             IsVegan = isVegan;
-            DoughType = doughType;
+            //DoughType = doughType;
         }
-        public static (Pizza pizza, string error) Create(Guid id, List<string> ingredients, Size size, DoughType doughType, bool isVegan)
+        public static (Pizza pizza, string error) Create(Guid id, /*List<string> ingredients, Size size, DoughType doughType,*/ bool isVegan)
         {
             var error = string.Empty;
 
-            if (ingredients.Count == 0)
-            {
-                error = "No ingredients were provided.";
-            }
+            //if (ingredients.Count == 0)
+            //{
+            //    error = "No ingredients were provided.";
+            //}
 
-            var pizza = new Pizza(ingredients, size, doughType, isVegan);
+            var pizza = new Pizza(isVegan);
 
             return (pizza, error);
         }

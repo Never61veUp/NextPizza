@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35222.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NextPizza.API", "NextPizza.API\NextPizza.API.csproj", "{44ABDBAB-8032-482A-AC45-48036043C4F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NextPizza.API", "NextPizza.API\NextPizza.API.csproj", "{44ABDBAB-8032-482A-AC45-48036043C4F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NextPizza.Core", "NextPizza.Core\NextPizza.Core.csproj", "{39E31937-36FE-4FD5-A31A-652C3A9BF91D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NextPizza.Core", "NextPizza.Core\NextPizza.Core.csproj", "{39E31937-36FE-4FD5-A31A-652C3A9BF91D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NextPizza.Application", "NextPizza.Application\NextPizza.Application.csproj", "{962DB066-9708-488D-8C29-107F7FF98725}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NextPizza.Application", "NextPizza.Application\NextPizza.Application.csproj", "{962DB066-9708-488D-8C29-107F7FF98725}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NextPizza.Persistence", "NextPizza.Persistence\NextPizza.Persistence.csproj", "{27755FDE-BA6A-4EEB-9782-C7B721A6CDC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NextPizza.Persistence", "NextPizza.Persistence\NextPizza.Persistence.csproj", "{27755FDE-BA6A-4EEB-9782-C7B721A6CDC4}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{58B7951B-68FC-4584-BC2F-59A160C29DDA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{27755FDE-BA6A-4EEB-9782-C7B721A6CDC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{27755FDE-BA6A-4EEB-9782-C7B721A6CDC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{27755FDE-BA6A-4EEB-9782-C7B721A6CDC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58B7951B-68FC-4584-BC2F-59A160C29DDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58B7951B-68FC-4584-BC2F-59A160C29DDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58B7951B-68FC-4584-BC2F-59A160C29DDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58B7951B-68FC-4584-BC2F-59A160C29DDA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

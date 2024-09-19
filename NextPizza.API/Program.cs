@@ -16,7 +16,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<NextPizzaDbContext>(
     options =>
     {
-        options.UseNpgsql(builder.Configuration.GetConnectionString(nameof(NextPizzaDbContext)));
+        options.UseNpgsql(builder.Configuration.GetConnectionString("NextPizzaDbContext"));
     });
 
 builder.Services.AddScoped<IProductService, ProductService>();

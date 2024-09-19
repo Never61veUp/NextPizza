@@ -13,6 +13,9 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["NextPizza.API/NextPizza.API.csproj", "NextPizza.API/"]
+COPY ["NextPizza.Application/NextPizza.Application.csproj", "NextPizza.Application/"]
+COPY ["NextPizza.Core/NextPizza.Core.csproj", "NextPizza.Core/"]
+COPY ["NextPizza.Persistence/NextPizza.Persistence.csproj", "NextPizza.Persistence/"]
 RUN dotnet restore "./NextPizza.API/NextPizza.API.csproj"
 COPY . .
 WORKDIR "/src/NextPizza.API"

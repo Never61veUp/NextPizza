@@ -14,9 +14,9 @@ namespace NextPizza.Persistence.Entities
         public string? Title { get; set; }
         public decimal Price { get; set; }
         public bool IsNewProduct { get; set; }
-        public List<string> Ingredients { get; }
+        //public List<string> Ingredients { get; }
         public bool IsVegan { get; }
-        public DoughType DoughType { get; }
-        public Size Size { get; }
+        //public DoughType DoughType { get; }
+        //public Size Size { get; }
     }
 }

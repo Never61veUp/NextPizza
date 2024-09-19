@@ -21,8 +21,8 @@ namespace NextPizza.Persistence.Configurations
                 .IsRequired();
             builder.Property(x => x.IsNewProduct).IsRequired();
             builder.Property(x => x.Price).IsRequired();
-            builder.Property(x => x.DoughType).IsRequired();
-            builder.Property(x => x.Size).IsRequired();
+            //builder.Property(x => x.DoughType).IsRequired();
+            //builder.Property(x => x.Size).IsRequired();
             builder.Property(x => x.IsVegan).IsRequired();
 
             

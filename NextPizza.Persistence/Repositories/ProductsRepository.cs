@@ -19,7 +19,7 @@ namespace NextPizza.Persistence.Repositories
             var pizzasEntities = await _context.Pizzas.AsNoTracking().ToListAsync();
 
             var pizzas = pizzasEntities
-                .Select(p => Pizza.Create(p.Id, p.Ingredients, p.Size, p.DoughType, p.IsVegan).pizza).ToList();
+                .Select(p => Pizza.Create(p.Id,/*p.Ingredients, p.Size, p.DoughType,*/ p.IsVegan).pizza).ToList();
             return pizzas;
         }
         // Create Pizza 16:33
