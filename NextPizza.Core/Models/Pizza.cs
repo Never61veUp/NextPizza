@@ -64,6 +64,12 @@ namespace NextPizza.Core.Models
             //validation
             return Result.Success(size);
         }
+        public static Result<Size> FindById(Guid id, string title, int sizeInCm)
+        {
+            var size = new Size(id, title, sizeInCm);
+            //validation
+            return Result.Success(size);
+        }
     }
 
     public class DoughType

@@ -20,6 +20,15 @@ namespace NextPizza.Application.Services
         {
             return await _productsRepository.Get();
         }
+        public async Task<Guid> CreateProduct(Pizza product)
+        {
+            return await _productsRepository.Create(product);
+        }
+
+        public async Task<Pizza> FinById()
+        {
+            return await _productsRepository.Get();
+        }
         //Create
     }
 }

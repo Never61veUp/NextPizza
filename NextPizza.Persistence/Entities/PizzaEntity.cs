@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -7,16 +9,21 @@ using System.Threading.Tasks;
 
 namespace NextPizza.Persistence.Entities
 {
-    public class PizzaEntity
+    public class PizzaEntity : Entity
         //подумать о продукте
     {
-        public Guid Id { get; set; }
+        
         public string? Title { get; set; }
         public decimal Price { get; set; }
         public bool IsNewProduct { get; set; }
         //public List<string> Ingredients { get; }
-        public bool IsVegan { get; }
-        //public DoughType DoughType { get; }
-        //public Size Size { get; }
+        public bool IsVegan { get; set; }
+        public Guid DoughTypeId { get; set; }
+        [ForeignKey("DoughTypeId")]
+        public DoughTypeEntity DoughType { get; set; }
+
+        public Guid SizeId {  get; set; }
+        [ForeignKey("SizeId")]
+        public SizeEntity SizeEntity { get; set; }
     }
 }
