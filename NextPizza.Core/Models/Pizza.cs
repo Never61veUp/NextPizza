@@ -1,48 +1,88 @@
-﻿public enum DoughType
-{
-    Thin,
-    Traditional
-}
-
-public enum Size
-{
-    Small,
-    Medium,
-    Large,
-}
-
-
-
+﻿using CSharpFunctionalExtensions;
 namespace NextPizza.Core.Models
 {
     public class Pizza : Product
     {
         public const int MAX_TITLE_LENGTH = 50;
-        public List<string> Ingredients { get; }
+        public IReadOnlyList<string> Ingredients { get; }
         public bool IsVegan { get; }
         public DoughType DoughType { get; }
         public Size Size { get; }
 
-        private Pizza(/*List<string> ingredients, Size size, DoughType doughType,*/ bool isVegan)
+        private Pizza(Guid id, string title, decimal price, bool isNewProduct, string imageUrl, IReadOnlyList<string> ingredients, Size size, bool isVegan, DoughType doughType)
         {
-            //Ingredients = ingredients;
-            //Size = size;
+            Id = id;
+            Title = title;
+            Price = price;
+            IsNewProduct = isNewProduct;
+            ImageUrl = imageUrl;
+            Ingredients = ingredients;
+            Size = size;
             IsVegan = isVegan;
-            //DoughType = doughType;
+            DoughType = doughType;
         }
-        public static (Pizza pizza, string error) Create(Guid id, /*List<string> ingredients, Size size, DoughType doughType,*/ bool isVegan)
+        public static Result<Pizza> Create(Guid id, string title, decimal price, bool isNewProduct, string imageUrl,
+            IReadOnlyList<string> ingredients, Size size, DoughType doughType, bool isVegan)
         {
-            var error = string.Empty;
 
-            //if (ingredients.Count == 0)
-            //{
-            //    error = "No ingredients were provided.";
-            //}
+            if (string.IsNullOrWhiteSpace(title) || title.Length > MAX_TITLE_LENGTH)
+            {
+                return Result.Failure<Pizza>("Title is invalid or too long.");
+            }
 
-            var pizza = new Pizza(isVegan);
+            if (ingredients.Count == 0)
+            {
+                return Result.Failure<Pizza>("Ingredients cannot be empty.");
+            }
 
-            return (pizza, error);
+            if (price <= 0)
+            {
+                return Result.Failure<Pizza>("Price must be greater than zero.");
+            }
+
+            var pizza = new Pizza(id, title, price, isNewProduct, imageUrl, ingredients, size, isVegan, doughType);
+            return Result.Success(pizza);
+
         }
     }
 
+    public class Size
+    {
+        public Guid Id { get; }
+        public string Title { get; } = string.Empty;
+        public int SizeInCm { get; }
+
+        private Size(Guid id, string title, int sizeInCm)
+        {
+            Id = id;
+            Title = title;
+            SizeInCm = sizeInCm;
+        }
+        public static Result<Size> Create(Guid id, string title, int sizeInCm)
+        {
+            var size = new Size(id, title, sizeInCm);
+            //validation
+            return Result.Success(size);
+        }
+    }
+
+    public class DoughType
+    {
+        public Guid Id { get; }
+        public string Title { get; } = string.Empty;
+        public int ThicknessInCm { get; }
+
+        private DoughType(Guid id, string title, int thicknessInCm)
+        {
+            Id = id;
+            Title = title;
+            ThicknessInCm = thicknessInCm;
+        }
+        public static Result<DoughType> Create(Guid id, string title, int thicknessInCm)
+        {
+            var result = new DoughType(id, title, thicknessInCm);
+            //validation
+            return Result.Success(result);
+        }
+    }
 }
