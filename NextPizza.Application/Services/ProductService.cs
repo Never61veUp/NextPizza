@@ -27,7 +27,13 @@ namespace NextPizza.Application.Services
 
         public async Task<Pizza> FinById()
         {
-            return await _productsRepository.Get();
+            throw new NotImplementedException();
+            //return await _productsRepository.Get();
+        }
+
+        Task<Pizza> IProductService.CreateProduct(Pizza product)
+        {
+            throw new NotImplementedException();
         }
         //Create
     }

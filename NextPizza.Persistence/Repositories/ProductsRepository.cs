@@ -17,10 +17,10 @@ namespace NextPizza.Persistence.Repositories
 
         public async Task<IEnumerable<Pizza>> Get()
         {
-            //var pizzasEntities = await _context.Pizzas.AsNoTracking().ToListAsync();
-
-            //var pizzas = pizzasEntities
-            //    .Select(p => Pizza.Create(p.Id,/*p.Ingredients, p.Size, p.DoughType,*/ p.IsVegan).pizza).ToList();
+            var pizzasEntities = await _context.Pizzas.AsNoTracking().ToListAsync();
+            
+            var pizzas = pizzasEntities
+                .Select(p => Pizza.Create(p.Id, p.Title, p.Price, p.IsNewProduct, "", "", p.DoughType, p.IsVegan).pizza).ToList();
             return null;
         }
 
