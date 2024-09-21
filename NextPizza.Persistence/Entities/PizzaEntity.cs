@@ -2,7 +2,7 @@
 
 namespace NextPizza.Persistence.Entities
 {
-    public class PizzaEntity : Entity
+    public class PizzaEntity : ProductEntity
     //подумать о продукте
     {
 

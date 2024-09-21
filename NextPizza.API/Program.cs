@@ -25,6 +25,9 @@ builder.Services.AddScoped<ISizeRepository, SizeRepository>();
 builder.Services.AddScoped<IDoughTypeRepository, DoughTypeRepository>();
 builder.Services.AddScoped<IDoughTypesService, DoughTypesService>();
 
+builder.Services.AddScoped<ProductService>();
+builder.Services.AddScoped<ProductsRepository>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

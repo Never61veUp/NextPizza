@@ -4,8 +4,6 @@ using NextPizza.API.Contracts;
 using NextPizza.Core.Abstractions;
 using NextPizza.Core.Models;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace NextPizza.API.Controllers
 {
     [Route("api/[controller]")]
@@ -13,9 +11,9 @@ namespace NextPizza.API.Controllers
     public class SizeController : ControllerBase
     {
         private readonly ISizesService _sizeService;
+
         public SizeController(ISizesService sizeService)
         {
-
             _sizeService = sizeService;
         }
 
@@ -30,13 +28,11 @@ namespace NextPizza.API.Controllers
                 return BadRequest(sizeResult.Error);
             }
 
-
-
             return Ok(sizeResult.Value);
-
         }
+
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyCollection<Size>>> GetSizes()
+        public async Task<ActionResult<IReadOnlyCollection<SizeResponse>>> GetSizes()
         {
             var result = await _sizeService.GetAllAsync();
             if (result.IsFailure)
@@ -49,18 +45,21 @@ namespace NextPizza.API.Controllers
 
             return Ok(response);
         }
+
         [HttpPut("{id:guid}")]
         public async Task<ActionResult<Guid>> UpdateSize(Guid id, [FromBody] SizeRequest request)
         {
             var size = Size.CreateExisting(id, request.Title, request.SizeInCm).Value;
-            var bookId = await _sizeService.UpdateAsync(id, size);
-            if (bookId.IsFailure)
+            var sizeId = await _sizeService.UpdateAsync(id, size);
+
+            if (sizeId.IsFailure)
             {
-                return BadRequest(bookId.Error);
+                return BadRequest(sizeId.Error);
             }
 
-            return Ok(bookId.Value);
+            return Ok(sizeId.Value);
         }
+
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult<Guid>> DeleteSize(Guid id)
         {
@@ -69,11 +68,12 @@ namespace NextPizza.API.Controllers
             {
                 return BadRequest(delSize.Error);
             }
+
             return Ok(delSize.Value);
         }
 
         [HttpGet("{id:guid}")]
-        public async Task<ActionResult<Size>> GetSizeById(Guid id)
+        public async Task<ActionResult<SizeResponse>> GetSizeById(Guid id)
         {
             var result = await _sizeService.GetByIdAsync(id);
             if (result.IsFailure)
@@ -81,10 +81,9 @@ namespace NextPizza.API.Controllers
                 return BadRequest(result.Error);
             }
 
-            var sizes = result.Value;
+            var size = result.Value;
 
-
-            return Ok(sizes);
+            return Ok(size);
         }
     }
 }

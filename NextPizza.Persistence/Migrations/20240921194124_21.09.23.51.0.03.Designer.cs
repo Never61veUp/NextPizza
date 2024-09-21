@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NextPizza.Persistence;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace NextPizza.Persistence.Migrations
 {
     [DbContext(typeof(NextPizzaDbContext))]
-    partial class NextPizzaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240921194124_21.09.23.51.0.03")]
+    partial class _21092351003
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -40,33 +43,37 @@ namespace NextPizza.Persistence.Migrations
                     b.ToTable("DoughTypes");
                 });
 
-            modelBuilder.Entity("NextPizza.Persistence.Entities.ProductEntity", b =>
+            modelBuilder.Entity("NextPizza.Persistence.Entities.PizzaEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("DoughTypeId")
+                        .HasColumnType("uuid");
+
                     b.Property<bool>("IsNewProduct")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsVegan")
                         .HasColumnType("boolean");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
-                    b.Property<string>("ProductType")
-                        .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("character varying(13)");
+                    b.Property<Guid>("SizeId")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Title")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Products");
+                    b.HasIndex("DoughTypeId");
 
-                    b.HasDiscriminator<string>("ProductType").HasValue("ProductEntity");
+                    b.HasIndex("SizeId");
 
-                    b.UseTphMappingStrategy();
+                    b.ToTable("Pizzas");
                 });
 
             modelBuilder.Entity("NextPizza.Persistence.Entities.SizeEntity", b =>
@@ -85,39 +92,6 @@ namespace NextPizza.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Sizes");
-                });
-
-            modelBuilder.Entity("NextPizza.Persistence.Entities.DrinkEntity", b =>
-                {
-                    b.HasBaseType("NextPizza.Persistence.Entities.ProductEntity");
-
-                    b.Property<bool>("IsAlcoholic")
-                        .HasColumnType("boolean");
-
-                    b.Property<decimal>("VolumeInLiters")
-                        .HasColumnType("numeric");
-
-                    b.HasDiscriminator().HasValue("Drink");
-                });
-
-            modelBuilder.Entity("NextPizza.Persistence.Entities.PizzaEntity", b =>
-                {
-                    b.HasBaseType("NextPizza.Persistence.Entities.ProductEntity");
-
-                    b.Property<Guid>("DoughTypeId")
-                        .HasColumnType("uuid");
-
-                    b.Property<bool>("IsVegan")
-                        .HasColumnType("boolean");
-
-                    b.Property<Guid>("SizeId")
-                        .HasColumnType("uuid");
-
-                    b.HasIndex("DoughTypeId");
-
-                    b.HasIndex("SizeId");
-
-                    b.HasDiscriminator().HasValue("Pizza");
                 });
 
             modelBuilder.Entity("NextPizza.Persistence.Entities.PizzaEntity", b =>

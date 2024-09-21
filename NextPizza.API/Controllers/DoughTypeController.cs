@@ -16,6 +16,7 @@ namespace NextPizza.API.Controllers
         {
             _doughTypesService = doughTypesService;
         }
+
         [HttpPost]
         public async Task<ActionResult> Create(DoughTypeRequest doughTypeRequest)
         {
@@ -27,13 +28,11 @@ namespace NextPizza.API.Controllers
                 return BadRequest(doughTypeResult.Error);
             }
 
-
-
             return Ok(doughTypeResult.Value);
-
         }
+
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyCollection<DoughType>>> GetDoughTypes()
+        public async Task<ActionResult<IReadOnlyCollection<DoughTypeResponse>>> GetDoughTypes()
         {
             var doughTypeResult = await _doughTypesService.GetAllAsync();
             if (doughTypeResult.IsFailure)
@@ -41,16 +40,18 @@ namespace NextPizza.API.Controllers
                 return BadRequest(doughTypeResult.Error);
             }
 
-            var sizes = doughTypeResult.Value;
-            var response = sizes.Select(s => new SizeResponse(s.Id, s.Title, s.ThicknessInCm)).ToList();
+            var doughTypes = doughTypeResult.Value;
+            var response = doughTypes.Select(s => new DoughTypeResponse(s.Id, s.Title, s.ThicknessInCm)).ToList();
 
             return Ok(response);
         }
+
         [HttpPut("{id:guid}")]
         public async Task<ActionResult<Guid>> Update(Guid id, [FromBody] DoughTypeRequest request)
         {
-            var size = DoughType.CreateExisting(id, request.Title, request.ThicknessInCm).Value;
-            var doughTypeResult = await _doughTypesService.UpdateAsync(id, size);
+            var doughType = DoughType.CreateExisting(id, request.Title, request.ThicknessInCm).Value;
+            var doughTypeResult = await _doughTypesService.UpdateAsync(id, doughType);
+
             if (doughTypeResult.IsFailure)
             {
                 return BadRequest(doughTypeResult.Error);
@@ -58,6 +59,7 @@ namespace NextPizza.API.Controllers
 
             return Ok(doughTypeResult.Value);
         }
+
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult<Guid>> Delete(Guid id)
         {
@@ -66,11 +68,12 @@ namespace NextPizza.API.Controllers
             {
                 return BadRequest(deleteResult.Error);
             }
+
             return Ok(deleteResult.Value);
         }
 
         [HttpGet("{id:guid}")]
-        public async Task<ActionResult<DoughType>> GetById(Guid id)
+        public async Task<ActionResult<DoughTypeResponse>> GetById(Guid id)
         {
             var result = await _doughTypesService.GetByIdAsync(id);
             if (result.IsFailure)
@@ -78,10 +81,9 @@ namespace NextPizza.API.Controllers
                 return BadRequest(result.Error);
             }
 
-            var sizes = result.Value;
+            var doughType = result.Value;
 
-
-            return Ok(sizes);
+            return Ok(doughType);
         }
     }
 }

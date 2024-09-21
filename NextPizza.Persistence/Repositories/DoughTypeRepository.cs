@@ -25,9 +25,9 @@ public class DoughTypeRepository : IDoughTypeRepository
 
         await _context.DoughTypes.AddAsync(doughTypeEntity);
         await _context.SaveChangesAsync();
+
         return Result.Success(doughTypeEntity.Id);
     }
-
     public async Task<Result<Guid>> Delete(Guid id)
     {
         var doughTypeEntity = await FindByIdAsync(id);
@@ -36,9 +36,9 @@ public class DoughTypeRepository : IDoughTypeRepository
 
         _context.DoughTypes.Remove(doughTypeEntity);
         await _context.SaveChangesAsync();
+
         return Result.Success(id);
     }
-
     public async Task<Result<IReadOnlyCollection<DoughType>>> GetAllAsync()
     {
         var doughTypeEntities = await _context.DoughTypes.AsNoTracking().ToListAsync();
@@ -48,7 +48,6 @@ public class DoughTypeRepository : IDoughTypeRepository
 
         return Result.Success(doughTypes);
     }
-
     public async Task<Result<DoughType>> GetById(Guid id)
     {
         var doughTypeEntity = await FindByIdAsync(id);
@@ -57,7 +56,6 @@ public class DoughTypeRepository : IDoughTypeRepository
 
         return Result.Success(MapToDoughType(doughTypeEntity));
     }
-
     public async Task<Result<DoughType>> Update(Guid id, DoughType doughType)
     {
         var existingDoughType = await _context.DoughTypes.FindAsync(id);
@@ -68,12 +66,14 @@ public class DoughTypeRepository : IDoughTypeRepository
         existingDoughType.ThicknessInCm = doughType.ThicknessInCm;
 
         await _context.SaveChangesAsync();
+
         return Result.Success(doughType);
     }
 
     private DoughType MapToDoughType(DoughTypeEntity entity)
     {
         var result = DoughType.CreateExisting(entity.Id, entity.Title, entity.ThicknessInCm);
+
         if (result.IsFailure)
             throw new InvalidOperationException("Error creating dough type from entity.");
 

@@ -1,24 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NextPizza.Application.Services;
 using NextPizza.Core.Abstractions;
+using NextPizza.Persistence.Entities;
 
 
 namespace NextPizza.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
-    public class ProductsController : ControllerBase
+    [Route("api/[controller]")]
+    public class ProductController : ControllerBase
     {
-        private readonly IProductService _productService;
-        private readonly ISizesService _sizeService;
-        private readonly IDoughTypesService _doughTypesService;
-
-        public ProductsController(IProductService productService, ISizesService sizeService, IDoughTypesService doughTypesService)
-        {
-            _productService = productService;
-            _sizeService = sizeService;
-            _doughTypesService = doughTypesService;
-        }
-
-
+        
     }
+
 }

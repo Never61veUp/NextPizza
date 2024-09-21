@@ -24,7 +24,6 @@ namespace NextPizza.Application.Services
 
             return Result.Success(size);
         }
-
         public async Task<Result<Guid>> DeleteAsync(Guid id)
         {
             var DeleteResult = await _sizeRepository.Delete(id);
@@ -32,10 +31,9 @@ namespace NextPizza.Application.Services
             {
                 return Result.Failure<Guid>(DeleteResult.Error);
             }
+
             return Result.Success(id);
-
         }
-
         public async Task<Result<IReadOnlyCollection<Size>>> GetAllAsync()
         {
             var GetAllResult = await _sizeRepository.GetAllAsync();
@@ -44,9 +42,9 @@ namespace NextPizza.Application.Services
             {
                 return Result.Failure<IReadOnlyCollection<Size>>(GetAllResult.Error);
             }
+
             return Result.Success(GetAllResult.Value);
         }
-
         public async Task<Result<Size>> GetByIdAsync(Guid id)
         {
             var GetById = await _sizeRepository.GetById(id);
@@ -58,7 +56,6 @@ namespace NextPizza.Application.Services
 
             return Result.Success(GetById.Value);
         }
-
         public async Task<Result<Size>> UpdateAsync(Guid id, Size size)
         {
             var UpdateResult = await _sizeRepository.Update(id, size);
@@ -67,6 +64,7 @@ namespace NextPizza.Application.Services
             {
                 return Result.Failure<Size>(UpdateResult.Error);
             }
+
             return Result.Success(size);
         }
     }
