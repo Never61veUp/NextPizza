@@ -15,13 +15,13 @@ namespace NextPizza.Application.Services
 
         public async Task<Result<IReadOnlyCollection<DoughType>>> GetAllAsync(Guid id)
         {
-            var GetAllResult = await _doughTypesRepository.GetAllAsync();
-            if (GetAllResult.IsFailure)
+            var getAllResult = await _doughTypesRepository.GetAllAsync();
+            if (getAllResult.IsFailure)
             {
-                return Result.Failure<IReadOnlyCollection<DoughType>>(GetAllResult.Error);
+                return Result.Failure<IReadOnlyCollection<DoughType>>(getAllResult.Error);
             }
 
-            return Result.Success(GetAllResult.Value);
+            return Result.Success(getAllResult.Value);
         }
         public async Task<Result<Guid>> CreateAsync(DoughType doughType)
         {
