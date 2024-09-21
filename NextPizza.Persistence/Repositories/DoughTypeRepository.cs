@@ -5,7 +5,7 @@ using NextPizza.Core.Models;
 using NextPizza.Persistence;
 using NextPizza.Persistence.Entities;
 
-internal class DoughTypeRepository : IDoughTypeRepository
+public class DoughTypeRepository : IDoughTypeRepository
 {
     private readonly NextPizzaDbContext _context;
 

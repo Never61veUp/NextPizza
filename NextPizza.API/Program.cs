@@ -20,7 +20,10 @@ builder.Services.AddDbContext<NextPizzaDbContext>(
     });
 
 builder.Services.AddScoped<ISizesService, SizesService>();
-builder.Services.AddScoped<IDoughTypeRepository, SizeRepository>();
+builder.Services.AddScoped<ISizeRepository, SizeRepository>();
+
+builder.Services.AddScoped<IDoughTypeRepository, DoughTypeRepository>();
+builder.Services.AddScoped<IDoughTypesService, DoughTypesService>();
 
 var app = builder.Build();
 

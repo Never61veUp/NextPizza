@@ -4,7 +4,7 @@ using NextPizza.Core.Models;
 
 namespace NextPizza.Application.Services
 {
-    internal class DoughTypesService : IDoughTypesService
+    public class DoughTypesService : IDoughTypesService
     {
         private readonly IDoughTypeRepository _doughTypesRepository;
 
@@ -13,7 +13,7 @@ namespace NextPizza.Application.Services
             _doughTypesRepository = doughTypeRepository;
         }
 
-        public async Task<Result<IReadOnlyCollection<DoughType>>> GetAllAsync(Guid id)
+        public async Task<Result<IReadOnlyCollection<DoughType>>> GetAllAsync()
         {
             var getAllResult = await _doughTypesRepository.GetAllAsync();
             if (getAllResult.IsFailure)

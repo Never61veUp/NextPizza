@@ -7,9 +7,9 @@ namespace NextPizza.Application.Services
 
     public class SizesService : ISizesService
     {
-        private readonly IDoughTypeRepository _sizeRepository;
+        private readonly ISizeRepository _sizeRepository;
 
-        public SizesService(IDoughTypeRepository sizeRepository)
+        public SizesService(ISizeRepository sizeRepository)
         {
             _sizeRepository = sizeRepository;
         }

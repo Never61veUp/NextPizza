@@ -8,7 +8,7 @@ namespace NextPizza.Persistence.Repositories
 {
 
 
-    public class SizeRepository : IDoughTypeRepository
+    public class SizeRepository : ISizeRepository
     {
         private readonly NextPizzaDbContext _context;
 
