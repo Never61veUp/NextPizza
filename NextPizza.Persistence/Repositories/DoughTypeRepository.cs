@@ -58,17 +58,18 @@ internal class DoughTypeRepository : IDoughTypeRepository
         return Result.Success(MapToDoughType(doughTypeEntity));
     }
 
-    public async Task<Result<Guid>> Update(Guid id, DoughType doughType)
+    public async Task<Result<DoughType>> Update(Guid id, DoughType doughType)
     {
         var existingDoughType = await _context.DoughTypes.FindAsync(id);
         if (existingDoughType == null)
-            return Result.Failure<Guid>("Dough type not found");
+            return Result.Failure<DoughType>("Dough type not found");
 
         existingDoughType.Title = doughType.Title;
         existingDoughType.ThicknessInCm = doughType.ThicknessInCm;
 
         await _context.SaveChangesAsync();
-        return Result.Success(id);
+        var doughTypeEntity = await FindByIdAsync(id);
+        return Result.Success(MapToDoughType(doughTypeEntity));
     }
 
     private DoughType MapToDoughType(DoughTypeEntity entity)

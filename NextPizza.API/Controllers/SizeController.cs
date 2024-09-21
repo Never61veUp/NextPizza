@@ -1,7 +1,6 @@
 ﻿using CSharpFunctionalExtensions;
 using Microsoft.AspNetCore.Mvc;
 using NextPizza.API.Contracts;
-using NextPizza.Application.Services;
 using NextPizza.Core.Abstractions;
 using NextPizza.Core.Models;
 
@@ -83,7 +82,7 @@ namespace NextPizza.API.Controllers
             }
 
             var sizes = result.Value;
-            
+
 
             return Ok(sizes);
         }

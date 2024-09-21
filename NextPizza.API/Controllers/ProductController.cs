@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using NextPizza.API.Contracts;
 using NextPizza.Core.Abstractions;
-using NextPizza.Core.Models;
 
 
 namespace NextPizza.API.Controllers
@@ -21,6 +19,6 @@ namespace NextPizza.API.Controllers
             _doughTypesService = doughTypesService;
         }
 
-        
+
     }
 }

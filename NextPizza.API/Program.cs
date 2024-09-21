@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
+using NextPizza.Application.Services;
 using NextPizza.Core.Abstractions;
 using NextPizza.Persistence;
-using NextPizza.Application.Services;
 using NextPizza.Persistence.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,7 +20,7 @@ builder.Services.AddDbContext<NextPizzaDbContext>(
     });
 
 builder.Services.AddScoped<ISizesService, SizesService>();
-builder.Services.AddScoped<ISizeRepository, SizeRepository>();
+builder.Services.AddScoped<IDoughTypeRepository, SizeRepository>();
 
 var app = builder.Build();
 

@@ -2,11 +2,6 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NextPizza.Core.Models;
 using NextPizza.Persistence.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NextPizza.Persistence.Configurations
 {
@@ -25,7 +20,7 @@ namespace NextPizza.Persistence.Configurations
             //builder.Property(x => x.Size).IsRequired();
             builder.Property(x => x.IsVegan).IsRequired();
 
-            
+
 
         }
     }

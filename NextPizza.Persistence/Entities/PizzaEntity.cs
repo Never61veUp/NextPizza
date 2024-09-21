@@ -1,18 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace NextPizza.Persistence.Entities
 {
     public class PizzaEntity : Entity
-        //подумать о продукте
+    //подумать о продукте
     {
-        
+
         public string? Title { get; set; }
         public decimal Price { get; set; }
         public bool IsNewProduct { get; set; }
@@ -22,7 +15,7 @@ namespace NextPizza.Persistence.Entities
         [ForeignKey("DoughTypeId")]
         public DoughTypeEntity DoughType { get; set; }
 
-        public Guid SizeId {  get; set; }
+        public Guid SizeId { get; set; }
         [ForeignKey("SizeId")]
         public SizeEntity SizeEntity { get; set; }
     }

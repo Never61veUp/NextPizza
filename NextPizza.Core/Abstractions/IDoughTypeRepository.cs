@@ -9,6 +9,6 @@ namespace NextPizza.Core.Abstractions
         Task<Result<Guid>> Delete(Guid id);
         Task<Result<IReadOnlyCollection<DoughType>>> GetAllAsync();
         Task<Result<DoughType>> GetById(Guid id);
-        Task<Result<Guid>> Update(Guid id, DoughType doughType);
+        Task<Result<DoughType>> Update(Guid id, DoughType doughType);
     }
 }

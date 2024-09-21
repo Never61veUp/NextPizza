@@ -10,7 +10,7 @@ namespace NextPizza.API.Contracts
         [Required] IReadOnlyList<string> Ingredients,
         [Required] Guid Size,
         [Required] Guid DoughType
-        
+
         )
     {
 

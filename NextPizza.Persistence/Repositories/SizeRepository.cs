@@ -3,17 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using NextPizza.Core.Abstractions;
 using NextPizza.Core.Models;
 using NextPizza.Persistence.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NextPizza.Persistence.Repositories
 {
 
 
-    public class SizeRepository : ISizeRepository
+    public class SizeRepository : IDoughTypeRepository
     {
         private readonly NextPizzaDbContext _context;
 

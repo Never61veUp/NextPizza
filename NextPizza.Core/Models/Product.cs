@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NextPizza.Core.Models
+﻿namespace NextPizza.Core.Models
 {
     public abstract class Product
     {
