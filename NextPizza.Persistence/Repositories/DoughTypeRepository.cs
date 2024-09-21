@@ -68,8 +68,7 @@ public class DoughTypeRepository : IDoughTypeRepository
         existingDoughType.ThicknessInCm = doughType.ThicknessInCm;
 
         await _context.SaveChangesAsync();
-        var doughTypeEntity = await FindByIdAsync(id);
-        return Result.Success(MapToDoughType(doughTypeEntity));
+        return Result.Success(doughType);
     }
 
     private DoughType MapToDoughType(DoughTypeEntity entity)
