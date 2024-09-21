@@ -8,7 +8,8 @@ namespace NextPizza.API.Contracts
         [Required] bool IsNewProduct,
         [Required] string ImageUrl,
         [Required] IReadOnlyList<string> Ingredients,
-        [Required] string Size
+        [Required] Guid Size,
+        [Required] Guid DoughType
         
         )
     {

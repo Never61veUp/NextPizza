@@ -13,5 +13,6 @@ namespace NextPizza.Persistence
 
         public DbSet<PizzaEntity> Pizzas { get; set; }
         public DbSet<SizeEntity> Sizes { get; set; }
+        public DbSet<DoughTypeEntity> DoughTypes { get; set; }
     }
 }

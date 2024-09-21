@@ -19,8 +19,8 @@ builder.Services.AddDbContext<NextPizzaDbContext>(
         options.UseNpgsql(builder.Configuration.GetConnectionString("NextPizzaDbContext"));
     });
 
-builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
+builder.Services.AddScoped<ISizesService, SizesService>();
+builder.Services.AddScoped<ISizeRepository, SizeRepository>();
 
 var app = builder.Build();
 

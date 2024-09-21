@@ -1,4 +1,5 @@
-﻿using NextPizza.Core.Abstractions;
+﻿using CSharpFunctionalExtensions;
+using NextPizza.Core.Abstractions;
 using NextPizza.Core.Models;
 using System;
 using System.Collections.Generic;
@@ -8,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace NextPizza.Application.Services
 {
-    public class ProductService
+    internal class DoughTypesService
     {
-       
+        
     }
 }

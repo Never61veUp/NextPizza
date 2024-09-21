@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NextPizza.Core\NextPizza.Core.csproj" />
+    <ProjectReference Include="..\NextPizza.Persistence\NextPizza.Persistence.csproj" />
   </ItemGroup>
 
 </Project>
