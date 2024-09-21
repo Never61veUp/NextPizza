@@ -13,9 +13,22 @@ namespace NextPizza.Core.Models
             Title = title;
             ThicknessInCm = thicknessInCm;
         }
-        public static Result<DoughType> Create(Guid id, string title, int thicknessInCm)
+        private DoughType(string title, int thicknessInCm)
+        {
+            Id = Guid.NewGuid();
+            Title = title;
+            ThicknessInCm = thicknessInCm;
+        }
+
+        public static Result<DoughType> CreateExisting(Guid id, string title, int thicknessInCm)
         {
             var result = new DoughType(id, title, thicknessInCm);
+            //validation
+            return Result.Success(result);
+        }
+        public static Result<DoughType> CreateNew(string title, int thicknessInCm)
+        {
+            var result = new DoughType(title, thicknessInCm);
             //validation
             return Result.Success(result);
         }
