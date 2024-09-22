@@ -8,7 +8,8 @@ namespace NextPizza.API.Contracts
         bool IsNewProduct,
         Guid DoughTypeId,
         bool IsVegan,
-        Guid SizeId
+        Guid SizeId,
+        string Type
         );
 
 }

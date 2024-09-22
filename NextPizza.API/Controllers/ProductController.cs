@@ -27,13 +27,14 @@ namespace NextPizza.API.Controllers
         [HttpPost("pizzas")]
         public async Task<IActionResult> CreatePizza([FromBody] ProductRequest request)
         {
+
             List<string> myList = new List<string> { "1", "2", "3", "4", "5" };
             IReadOnlyList<string> readOnlyList = myList;
 
             var size = await _sizesService.GetByIdAsync(request.SizeId);
             var doughType = await _doughTypesService.GetByIdAsync(request.DoughTypeId);
 
-            var pizza = Pizza.CreateNew(request.Title, request.Price, request.IsNewProduct, "", readOnlyList, size.Value, doughType.Value, request.IsVegan).Value;
+            var pizza = Pizza.CreateNew(request.Title, request.Price, request.IsNewProduct, "", readOnlyList, size.Value, doughType.Value, request.IsVegan, request.Type).Value;
             Console.WriteLine(pizza.Title);
             await _productService.CreatePizza(pizza);
             return Ok();

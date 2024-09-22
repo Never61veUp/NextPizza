@@ -1,85 +1,61 @@
 ﻿using CSharpFunctionalExtensions;
-namespace NextPizza.Core.Models
+
+namespace NextPizza.Core.Models;
+
+public class Pizza : Product
 {
-    public class Pizza : Product
+    private Pizza(Guid id, string title, decimal price, bool isNewProduct, string imageUrl,
+        IReadOnlyList<string> ingredients,
+        Size size, bool isVegan, DoughType doughType)
+        : base(id, title, price, isNewProduct, imageUrl, "Pizza")
     {
-        public const int MAX_TITLE_LENGTH = 50;
-        public IReadOnlyList<string> Ingredients { get; }
-        public bool IsVegan { get; }
-        public DoughType DoughType { get; }
-        public Size Size { get; }
+        Ingredients = ingredients;
+        Size = size;
+        IsVegan = isVegan;
+        DoughType = doughType;
+    }
 
-        private Pizza(Guid id, string title, decimal price, bool isNewProduct, string imageUrl, IReadOnlyList<string> ingredients, Size size, bool isVegan, DoughType doughType)
-        {
-            Id = id;
-            Title = title;
-            Price = price;
-            IsNewProduct = isNewProduct;
-            ImageUrl = imageUrl;
-            Ingredients = ingredients;
-            Size = size;
-            IsVegan = isVegan;
-            DoughType = doughType;
-            Type = "Pizza";
-        }
-        private Pizza(string title, decimal price, bool isNewProduct, string imageUrl, IReadOnlyList<string> ingredients, Size size, bool isVegan, DoughType doughType)
-        {
-            Id = Guid.NewGuid();
-            Title = title;
-            Price = price;
-            IsNewProduct = isNewProduct;
-            ImageUrl = imageUrl;
-            Ingredients = ingredients;
-            Size = size;
-            IsVegan = isVegan;
-            DoughType = doughType;
-            Type = "Pizza";
-        }
-        public static Result<Pizza> CreateExisting(Guid id, string title, decimal price, bool isNewProduct, string imageUrl,
-            IReadOnlyList<string> ingredients, Size size, DoughType doughType, bool isVegan)
-        {
+    private Pizza(string title, decimal price, bool isNewProduct, string imageUrl, IReadOnlyList<string> ingredients,
+        Size size, bool isVegan, DoughType doughType)
+        : base(title, price, isNewProduct, imageUrl, "Pizza")
+    {
+        Ingredients = ingredients;
+        Size = size;
+        IsVegan = isVegan;
+        DoughType = doughType;
+    }
 
-            if (string.IsNullOrWhiteSpace(title) || title.Length > MAX_TITLE_LENGTH)
-            {
-                return Result.Failure<Pizza>("Title is invalid or too long.");
-            }
+    public IReadOnlyList<string> Ingredients { get; }
+    public bool IsVegan { get; }
+    public DoughType DoughType { get; }
+    public Size Size { get; }
+    public string Type { get; }
 
-            if (ingredients.Count == 0)
-            {
-                return Result.Failure<Pizza>("Ingredients cannot be empty.");
-            }
+    public static Result<Pizza> CreateExisting(Guid id, string title, decimal price, bool isNewProduct, string imageUrl,
+        IReadOnlyList<string> ingredients, Size size, DoughType doughType, bool isVegan, string type)
+    {
+        if (string.IsNullOrWhiteSpace(title) || title.Length > MAX_TITLE_LENGTH)
+            return Result.Failure<Pizza>("Title is invalid or too long.");
 
-            if (price <= 0)
-            {
-                return Result.Failure<Pizza>("Price must be greater than zero.");
-            }
+        if (ingredients.Count == 0) return Result.Failure<Pizza>("Ingredients cannot be empty.");
 
-            var pizza = new Pizza(id, title, price, isNewProduct, imageUrl, ingredients, size, isVegan, doughType);
-            return Result.Success(pizza);
+        if (price <= 0) return Result.Failure<Pizza>("Price must be greater than zero.");
 
-        }
-        public static Result<Pizza> CreateNew(string title, decimal price, bool isNewProduct, string imageUrl,
-            IReadOnlyList<string> ingredients, Size size, DoughType doughType, bool isVegan)
-        {
+        var pizza = new Pizza(id, title, price, isNewProduct, imageUrl, ingredients, size, isVegan, doughType);
+        return Result.Success(pizza);
+    }
 
-            if (string.IsNullOrWhiteSpace(title) || title.Length > MAX_TITLE_LENGTH)
-            {
-                return Result.Failure<Pizza>("Title is invalid or too long.");
-            }
+    public static Result<Pizza> CreateNew(string title, decimal price, bool isNewProduct, string imageUrl,
+        IReadOnlyList<string> ingredients, Size size, DoughType doughType, bool isVegan, string type)
+    {
+        if (string.IsNullOrWhiteSpace(title) || title.Length > MAX_TITLE_LENGTH)
+            return Result.Failure<Pizza>("Title is invalid or too long.");
 
-            if (ingredients.Count == 0)
-            {
-                return Result.Failure<Pizza>("Ingredients cannot be empty.");
-            }
+        if (ingredients.Count == 0) return Result.Failure<Pizza>("Ingredients cannot be empty.");
 
-            if (price <= 0)
-            {
-                return Result.Failure<Pizza>("Price must be greater than zero.");
-            }
+        if (price <= 0) return Result.Failure<Pizza>("Price must be greater than zero.");
 
-            var pizza = new Pizza(title, price, isNewProduct, imageUrl, ingredients, size, isVegan, doughType);
-            return Result.Success(pizza);
-
-        }
+        var pizza = new Pizza(title, price, isNewProduct, imageUrl, ingredients, size, isVegan, doughType);
+        return Result.Success(pizza);
     }
 }

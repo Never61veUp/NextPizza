@@ -21,8 +21,22 @@ namespace NextPizza.Persistence.Repositories
             return Result.Success(product);
 
         }
+
+        //public async Task<Result<List<Product>>> GetAllProducts()
+        //{
+        //    var productEntities = await _context.Products.AsNoTracking().ToListAsync();
+            
+        //    var products = productEntities.Se
+
+
+
+        //}
+
+
+
         public async Task<Result<Pizza>> CreatePizza(Pizza pizza)
         {
+            var productEntities = await _context.Products.AsNoTracking().ToListAsync();
             var pizzaEntity = new PizzaEntity
             {
                 Id = pizza.Id,
