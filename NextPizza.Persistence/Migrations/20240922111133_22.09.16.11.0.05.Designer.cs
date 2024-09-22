@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NextPizza.Persistence;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace NextPizza.Persistence.Migrations
 {
     [DbContext(typeof(NextPizzaDbContext))]
-    partial class NextPizzaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240922111133_22.09.16.11.0.05")]
+    partial class _22091611005
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,6 +49,11 @@ namespace NextPizza.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasMaxLength(13)
+                        .HasColumnType("character varying(13)");
+
                     b.Property<bool>("IsNewProduct")
                         .HasColumnType("boolean");
 
@@ -59,7 +67,9 @@ namespace NextPizza.Persistence.Migrations
 
                     b.ToTable("Products");
 
-                    b.UseTptMappingStrategy();
+                    b.HasDiscriminator().HasValue("ProductEntity");
+
+                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("NextPizza.Persistence.Entities.SizeEntity", b =>
@@ -90,7 +100,7 @@ namespace NextPizza.Persistence.Migrations
                     b.Property<decimal>("VolumeInLiters")
                         .HasColumnType("numeric");
 
-                    b.ToTable("Drink");
+                    b.HasDiscriminator().HasValue("DrinkEntity");
                 });
 
             modelBuilder.Entity("NextPizza.Persistence.Entities.PizzaEntity", b =>
@@ -110,16 +120,7 @@ namespace NextPizza.Persistence.Migrations
 
                     b.HasIndex("SizeId");
 
-                    b.ToTable("Pizza");
-                });
-
-            modelBuilder.Entity("NextPizza.Persistence.Entities.DrinkEntity", b =>
-                {
-                    b.HasOne("NextPizza.Persistence.Entities.ProductEntity", null)
-                        .WithOne()
-                        .HasForeignKey("NextPizza.Persistence.Entities.DrinkEntity", "Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasDiscriminator().HasValue("PizzaEntity");
                 });
 
             modelBuilder.Entity("NextPizza.Persistence.Entities.PizzaEntity", b =>
@@ -127,12 +128,6 @@ namespace NextPizza.Persistence.Migrations
                     b.HasOne("NextPizza.Persistence.Entities.DoughTypeEntity", "DoughType")
                         .WithMany()
                         .HasForeignKey("DoughTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("NextPizza.Persistence.Entities.ProductEntity", null)
-                        .WithOne()
-                        .HasForeignKey("NextPizza.Persistence.Entities.PizzaEntity", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -1,10 +1,10 @@
-﻿using NextPizza.Core.Models;
+﻿using CSharpFunctionalExtensions;
+using NextPizza.Core.Models;
 
 namespace NextPizza.Core.Abstractions
 {
     public interface IProductService
     {
-        Task<IEnumerable<Product>> GetAllProducts();
-        Task<Pizza> CreateProduct(Pizza product);
+        Task<Result<Pizza>> CreatePizza(Pizza product);
     }
 }

@@ -20,8 +20,22 @@ namespace NextPizza.Core.Models
             Size = size;
             IsVegan = isVegan;
             DoughType = doughType;
+            Type = "Pizza";
         }
-        public static Result<Pizza> Create(Guid id, string title, decimal price, bool isNewProduct, string imageUrl,
+        private Pizza(string title, decimal price, bool isNewProduct, string imageUrl, IReadOnlyList<string> ingredients, Size size, bool isVegan, DoughType doughType)
+        {
+            Id = Guid.NewGuid();
+            Title = title;
+            Price = price;
+            IsNewProduct = isNewProduct;
+            ImageUrl = imageUrl;
+            Ingredients = ingredients;
+            Size = size;
+            IsVegan = isVegan;
+            DoughType = doughType;
+            Type = "Pizza";
+        }
+        public static Result<Pizza> CreateExisting(Guid id, string title, decimal price, bool isNewProduct, string imageUrl,
             IReadOnlyList<string> ingredients, Size size, DoughType doughType, bool isVegan)
         {
 
@@ -41,6 +55,29 @@ namespace NextPizza.Core.Models
             }
 
             var pizza = new Pizza(id, title, price, isNewProduct, imageUrl, ingredients, size, isVegan, doughType);
+            return Result.Success(pizza);
+
+        }
+        public static Result<Pizza> CreateNew(string title, decimal price, bool isNewProduct, string imageUrl,
+            IReadOnlyList<string> ingredients, Size size, DoughType doughType, bool isVegan)
+        {
+
+            if (string.IsNullOrWhiteSpace(title) || title.Length > MAX_TITLE_LENGTH)
+            {
+                return Result.Failure<Pizza>("Title is invalid or too long.");
+            }
+
+            if (ingredients.Count == 0)
+            {
+                return Result.Failure<Pizza>("Ingredients cannot be empty.");
+            }
+
+            if (price <= 0)
+            {
+                return Result.Failure<Pizza>("Price must be greater than zero.");
+            }
+
+            var pizza = new Pizza(title, price, isNewProduct, imageUrl, ingredients, size, isVegan, doughType);
             return Result.Success(pizza);
 
         }

@@ -7,5 +7,6 @@
         public decimal Price { get; protected set; }
         public bool IsNewProduct { get; protected set; }
         public string? ImageUrl { get; protected set; }
+        public string Type { get; protected set; }
     }
 }

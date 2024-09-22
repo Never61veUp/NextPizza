@@ -25,8 +25,8 @@ builder.Services.AddScoped<ISizeRepository, SizeRepository>();
 builder.Services.AddScoped<IDoughTypeRepository, DoughTypeRepository>();
 builder.Services.AddScoped<IDoughTypesService, DoughTypesService>();
 
-builder.Services.AddScoped<ProductService>();
-builder.Services.AddScoped<ProductsRepository>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IProductsRepository, ProductsRepository>();
 
 var app = builder.Build();
 

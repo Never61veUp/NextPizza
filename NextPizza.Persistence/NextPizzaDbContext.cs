@@ -18,24 +18,24 @@ namespace NextPizza.Persistence
         public DbSet<PizzaEntity> Pizzas { get; set; }
         public DbSet<DrinkEntity> Drinks { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    base.OnModelCreating(modelBuilder);
 
-            // Настройка наследования через TPH
-            modelBuilder.Entity<ProductEntity>()
-                .HasDiscriminator<string>("ProductType")
-                .HasValue<PizzaEntity>("Pizza")
-                .HasValue<DrinkEntity>("Drink");
+        //    // Настройка наследования через TPH
+        //    modelBuilder.Entity<ProductEntity>()
+        //        .HasDiscriminator<string>("ProductType")
+        //        .HasValue<PizzaEntity>("Pizza")
+        //        .HasValue<DrinkEntity>("Drink");
 
-            // Дополнительные конфигурации для конкретных продуктов
-            modelBuilder.Entity<PizzaEntity>()
-                .Property(p => p.DoughTypeId)
-                .IsRequired();
+        //    // Дополнительные конфигурации для конкретных продуктов
+        //    modelBuilder.Entity<PizzaEntity>()
+        //        .Property(p => p.DoughTypeId)
+        //        .IsRequired();
 
-            modelBuilder.Entity<DrinkEntity>()
-                .Property(d => d.VolumeInLiters)
-                .IsRequired();
-        }
+        //    modelBuilder.Entity<DrinkEntity>()
+        //        .Property(d => d.VolumeInLiters)
+        //        .IsRequired();
+        //}
     }
 }
