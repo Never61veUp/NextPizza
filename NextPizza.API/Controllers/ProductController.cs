@@ -51,7 +51,7 @@ namespace NextPizza.API.Controllers
             await _productService.CreatePizza(product);
 
 
-            return Ok();
+            return Ok("Successful product addition");
         }
     }
 
