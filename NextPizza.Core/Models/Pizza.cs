@@ -7,7 +7,7 @@ public class Pizza : Product
     private Pizza(Guid id, string title, decimal price, bool isNewProduct, string imageUrl,
         IReadOnlyList<string> ingredients,
         Size size, bool isVegan, DoughType doughType)
-        : base(id, title, price, isNewProduct, imageUrl, "Pizza")
+        : base(id, title, price, isNewProduct, imageUrl, "pizza")
     {
         Ingredients = ingredients;
         Size = size;
@@ -17,7 +17,7 @@ public class Pizza : Product
 
     private Pizza(string title, decimal price, bool isNewProduct, string imageUrl, IReadOnlyList<string> ingredients,
         Size size, bool isVegan, DoughType doughType)
-        : base(title, price, isNewProduct, imageUrl, "Pizza")
+        : base(title, price, isNewProduct, imageUrl, "pizza")
     {
         Ingredients = ingredients;
         Size = size;
@@ -29,10 +29,9 @@ public class Pizza : Product
     public bool IsVegan { get; }
     public DoughType DoughType { get; }
     public Size Size { get; }
-    public string Type { get; }
 
     public static Result<Pizza> CreateExisting(Guid id, string title, decimal price, bool isNewProduct, string imageUrl,
-        IReadOnlyList<string> ingredients, Size size, DoughType doughType, bool isVegan, string type)
+        IReadOnlyList<string> ingredients, Size size, DoughType doughType, bool isVegan)
     {
         if (string.IsNullOrWhiteSpace(title) || title.Length > MAX_TITLE_LENGTH)
             return Result.Failure<Pizza>("Title is invalid or too long.");
@@ -46,7 +45,7 @@ public class Pizza : Product
     }
 
     public static Result<Pizza> CreateNew(string title, decimal price, bool isNewProduct, string imageUrl,
-        IReadOnlyList<string> ingredients, Size size, DoughType doughType, bool isVegan, string type)
+        IReadOnlyList<string> ingredients, Size size, DoughType doughType, bool isVegan)
     {
         if (string.IsNullOrWhiteSpace(title) || title.Length > MAX_TITLE_LENGTH)
             return Result.Failure<Pizza>("Title is invalid or too long.");

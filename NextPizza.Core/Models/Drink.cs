@@ -23,15 +23,15 @@ public class Drink : Product
     public decimal VolumeInLiters { get; set; }
     public bool IsAlcoholic { get; set; }
 
-    public static Result<Drink> CreateNew(string title, decimal price, bool isNewProduct, string imageUrl,
-        string type, bool isAlcoholic, decimal volumeInLiters)
+    public static Result<Drink> CreateNew(string title, decimal price, bool isNewProduct, string imageUrl, 
+        bool isAlcoholic, decimal volumeInLiters)
     {
         var drink = new Drink(title, price, isNewProduct, imageUrl, isAlcoholic, volumeInLiters);
         return drink;
     }
 
     public static Result<Drink> CreateExisting(Guid id, string title, decimal price, bool isNewProduct, string imageUrl,
-        string type, bool isAlcoholic, decimal volumeInLiters)
+        bool isAlcoholic, decimal volumeInLiters)
     {
         var drink = new Drink(id, title, price, isNewProduct, imageUrl, isAlcoholic, volumeInLiters);
         return drink;
