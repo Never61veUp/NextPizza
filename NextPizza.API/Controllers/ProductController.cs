@@ -24,19 +24,33 @@ namespace NextPizza.API.Controllers
             _doughTypesService = doughTypesService;
         }
 
-        [HttpPost("pizzas")]
+        [HttpPost("{type:}")]
         public async Task<IActionResult> CreatePizza([FromBody] ProductRequest request)
         {
 
             List<string> myList = new List<string> { "1", "2", "3", "4", "5" };
             IReadOnlyList<string> readOnlyList = myList;
 
-            var size = await _sizesService.GetByIdAsync(request.SizeId);
-            var doughType = await _doughTypesService.GetByIdAsync(request.DoughTypeId);
+            
 
-            var pizza = Pizza.CreateNew(request.Title, request.Price, request.IsNewProduct, "", readOnlyList, size.Value, doughType.Value, request.IsVegan, request.Type).Value;
-            Console.WriteLine(pizza.Title);
-            await _productService.CreatePizza(pizza);
+            Product product;
+            if (request.Type == "pizza")
+            {
+                var size = await _sizesService.GetByIdAsync(request.SizeId);
+                var doughType = await _doughTypesService.GetByIdAsync(request.DoughTypeId);
+                product = Pizza.CreateNew(request.Title, request.Price, request.IsNewProduct, "", 
+                    readOnlyList, size.Value, doughType.Value, request.IsVegan, request.Type).Value;
+
+                
+            }
+            else
+            {
+                product = Drink.CreateNew(request.Title, request.Price, request.IsNewProduct, "", 
+                    "drink", request.IsAlcoholic, request.VolumeInLiters).Value;
+            }
+            await _productService.CreatePizza(product);
+
+
             return Ok();
         }
     }

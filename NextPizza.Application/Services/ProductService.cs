@@ -14,11 +14,12 @@ namespace NextPizza.Application.Services
         {
             _productsRepository = productsRepository;
         }
-        public async Task<Result<Pizza>> CreatePizza(Pizza pizza)
+        public async Task<Result<Product>> CreatePizza(Product product)
         {
-            _productsRepository.CreatePizza(pizza);
-            return Result.Success(pizza);
+            _productsRepository.CreatePizza(product);
+            return Result.Success(product);
         }
+        
     }
 
 }

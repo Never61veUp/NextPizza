@@ -5,6 +5,6 @@ namespace NextPizza.Core.Abstractions
 {
     public interface IProductService
     {
-        Task<Result<Pizza>> CreatePizza(Pizza product);
+        Task<Result<Product>> CreatePizza(Product product);
     }
 }

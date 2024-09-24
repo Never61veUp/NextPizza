@@ -34,25 +34,44 @@ namespace NextPizza.Persistence.Repositories
 
 
 
-        public async Task<Result<Pizza>> CreatePizza(Pizza pizza)
+        public async Task<Result<Product>> CreatePizza(Product product)
         {
-            var productEntities = await _context.Products.AsNoTracking().ToListAsync();
-            var pizzaEntity = new PizzaEntity
+            if (product.Type == "pizza")
             {
-                Id = pizza.Id,
-                Title = pizza.Title,
-                Price = pizza.Price,
-                IsNewProduct = pizza.IsNewProduct,
-                DoughTypeId = pizza.DoughType.Id,
-                IsVegan = pizza.IsVegan,
-                SizeId = pizza.Size.Id,
+                var pizza = product as Pizza;
+                var pizzaEntity = new PizzaEntity
+                {
+                    Id = pizza.Id,
+                    Title = pizza.Title,
+                    Price = pizza.Price,
+                    IsNewProduct = pizza.IsNewProduct,
+                    DoughTypeId = pizza.DoughType.Id,
+                    IsVegan = pizza.IsVegan,
+                    SizeId = pizza.Size.Id,
 
 
-            };
-            await _context.Pizzas.AddAsync(pizzaEntity);
-            await _context.SaveChangesAsync();
+                };
+                await _context.Pizzas.AddAsync(pizzaEntity);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                var drink = product as Drink;
+                var drinkEntity = new DrinkEntity
+                {
+                    Id = drink.Id,
+                    Title = drink.Title,
+                    Price = drink.Price,
+                    IsNewProduct = drink.IsNewProduct,
+                    IsAlcoholic = drink.IsAlcoholic,
+                    VolumeInLiters = drink.VolumeInLiters,
+                };
+                await _context.Drinks.AddAsync(drinkEntity);
+                await _context.SaveChangesAsync();
+            }
+           
 
-            return Result.Success(pizza);
+            return Result.Success(product);
             
         }
 

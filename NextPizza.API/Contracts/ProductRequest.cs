@@ -6,10 +6,12 @@ namespace NextPizza.API.Contracts
         string Title,
         decimal Price,
         bool IsNewProduct,
-        Guid DoughTypeId,
         bool IsVegan,
+        string Type,
+        Guid DoughTypeId,
         Guid SizeId,
-        string Type
+        decimal VolumeInLiters,
+        bool IsAlcoholic
         );
 
 }
