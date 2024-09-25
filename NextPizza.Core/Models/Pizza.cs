@@ -33,34 +33,10 @@ public class Pizza : Product
     public static Result<Pizza> CreateExisting(Guid id, string title, decimal price, bool isNewProduct, string imageUrl,
         IReadOnlyList<string> ingredients, Size size, DoughType doughType, bool isVegan)
     {
-        if (CheckResult(title, price, ingredients, out var existing)) return existing;
+        if (CheckResult(title, price, ingredients, out var exception)) return exception;
 
         var pizza = new Pizza(id, title, price, isNewProduct, imageUrl, ingredients, size, isVegan, doughType);
         return Result.Success(pizza);
-    }
-
-    private static bool CheckResult(string title, decimal price, IReadOnlyList<string> ingredients, out Result<Pizza> existing)
-    {
-        existing = Result.Failure<Pizza>("Something went wrong.");
-        if (string.IsNullOrWhiteSpace(title) || title.Length > MAX_TITLE_LENGTH)
-        {
-            existing = Result.Failure<Pizza>("Title is invalid or too long.");
-            return false;
-        }
-
-        if (ingredients.Count == 0)
-        {
-            existing = Result.Failure<Pizza>("Ingredients cannot be empty.");
-            return false;
-        }
-
-        if (price <= 0)
-        {
-            existing = Result.Failure<Pizza>("Price must be greater than zero.");
-            return false;
-        }
-
-        return true;
     }
 
     public static Result<Pizza> CreateNew(string title, decimal price, bool isNewProduct, string imageUrl,
@@ -70,5 +46,32 @@ public class Pizza : Product
 
         var pizza = new Pizza(title, price, isNewProduct, imageUrl, ingredients, size, isVegan, doughType);
         return Result.Success(pizza);
+    }
+
+    private static bool CheckResult(string title, decimal price, IReadOnlyList<string> ingredients,
+        out Result<Pizza> exceptionResult)
+    {
+        if (CheckProductException(title, price, out var productExceptionResult))
+        {
+            exceptionResult = productExceptionResult.Map(product => (Pizza)product);
+            return true;
+        }
+
+        exceptionResult = Result.Failure<Pizza>("Something went wrong.");
+
+
+        if (ingredients == null || ingredients.Count == 0)
+        {
+            exceptionResult = Result.Failure<Pizza>("Ingredients cannot be null or empty.");
+            return true;
+        }
+
+        if (ingredients.Distinct().Count() != ingredients.Count)
+        {
+            exceptionResult = Result.Failure<Pizza>("Ingredients must be unique.");
+            return true;
+        }
+
+        return false;
     }
 }
