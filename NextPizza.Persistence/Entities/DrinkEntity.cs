@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NextPizza.Core.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -12,5 +13,12 @@ namespace NextPizza.Persistence.Entities
     {
         public decimal VolumeInLiters { get; set; }
         public bool IsAlcoholic { get; set; }
+
+        protected override Product CreateExtended(ProductEntity product)
+        {
+            return Drink.CreateExisting(Id, Title, Price, IsNewProduct, "", IsAlcoholic, VolumeInLiters).Value;
+        }
     }
+
+    
 }

@@ -39,7 +39,7 @@ public class Drink : Product
         return drink;
     }
 
-    protected static bool CheckResult(string title, decimal price, out Result<Drink> exceptionResult, decimal volumeInLiters, bool isAlcohol)
+    private static bool CheckResult(string title, decimal price, out Result<Drink> exceptionResult, decimal volumeInLiters, bool isAlcohol)
     {
         if(CheckProductException(title, price, out var productExceptionResult))
         {

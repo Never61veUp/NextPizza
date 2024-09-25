@@ -20,36 +20,41 @@ public class ProductsRepository : IProductsRepository
 
     public async Task<Result<IEnumerable<Product>>> GetAllProducts()
     {
+        DrinkEntity drink = new DrinkEntity();
         var b = new List<string>()
         {
             "d"
         };
+        var getProducts = await _context.Products.ToListAsync();
 
-        var pizzaEntities = await _context.Pizzas.AsNoTracking().Include(pizzaEntity => pizzaEntity.SizeEntity)
-            .Include(pizzaEntity => pizzaEntity.DoughTypeEntity).ToListAsync();
+        var a = getProducts.Select(p => drink.ToDrink(getProducts.)).ToList();
 
-        var drinkEntities = await _context.Drinks.AsNoTracking().ToListAsync();
+        foreach (var VARIABLE in getProducts)
+        {
+            VARIABLE.To
+        }
 
-        var pizzas = pizzaEntities.Select(p => Pizza.CreateExisting(p.Id, p.Title, p.Price,
-            p.IsNewProduct, "", b,
-            _context.Sizes.Where(x => x.Id == p.DoughTypeId)
-                .Select(b => Size.CreateExisting(b.Id, b.Title, b.SizeInCm).Value).FirstOrDefault(), _context.DoughTypes
-                .Where(x => x.Id == p.DoughTypeId)
-                .Select(b => DoughType.CreateExisting(b.Id, b.Title, b.ThicknessInCm).Value).FirstOrDefault(),
-            p.IsVegan).Value);
-        var drinks = drinkEntities.Select(p =>
-            Drink.CreateExisting(p.Id, p.Title, p.Price, p.IsNewProduct, "", p.IsAlcoholic, p.VolumeInLiters).Value);
 
-        IEnumerable<Product> combinedList = drinkEntities
-            .Select(d => (Product)Drink.CreateExisting(d.Id, d.Title, d.Price, d.IsNewProduct, imageUrl: "", d.IsAlcoholic, d.VolumeInLiters).Value)
-            .Concat(
-                pizzaEntities.Select(p => (Product)Pizza.CreateExisting(p.Id, p.Title, p.Price, p.IsNewProduct, imageUrl: "", b, _context.Sizes.Where(x => x.Id == p.DoughTypeId)
-                    .Select(b => Size.CreateExisting(b.Id, b.Title, b.SizeInCm).Value).FirstOrDefault(), _context.DoughTypes
-                    .Where(x => x.Id == p.DoughTypeId)
-                    .Select(b => DoughType.CreateExisting(b.Id, b.Title, b.ThicknessInCm).Value).FirstOrDefault(), p.IsVegan).Value)
-            );
 
-        return Result.Success<IEnumerable<Product>>(combinedList);
+
+
+        //var pizzaEntities = await _context.Pizzas.AsNoTracking().Include(pizzaEntity => pizzaEntity.SizeEntity)
+        //    .Include(pizzaEntity => pizzaEntity.DoughTypeEntity).ToListAsync();
+
+        //var drinkEntities = await _context.Drinks.AsNoTracking().ToListAsync();
+
+
+
+        //IEnumerable<Product> combinedList = drinkEntities
+        //    .Select(d => (Product)Drink.CreateExisting(d.Id, d.Title, d.Price, d.IsNewProduct, imageUrl: "", d.IsAlcoholic, d.VolumeInLiters).Value)
+        //    .Concat(
+        //        pizzaEntities.Select(p => (Product)Pizza.CreateExisting(p.Id, p.Title, p.Price, p.IsNewProduct, imageUrl: "", b, _context.Sizes.Where(x => x.Id == p.DoughTypeId)
+        //            .Select(b => Size.CreateExisting(b.Id, b.Title, b.SizeInCm).Value).FirstOrDefault(), _context.DoughTypes
+        //            .Where(x => x.Id == p.DoughTypeId)
+        //            .Select(b => DoughType.CreateExisting(b.Id, b.Title, b.ThicknessInCm).Value).FirstOrDefault(), p.IsVegan).Value)
+        //    );
+
+        //return Result.Success<IEnumerable<Product>>(combinedList);
     }
 
 
