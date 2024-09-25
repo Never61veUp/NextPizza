@@ -10,7 +10,7 @@ namespace NextPizza.Persistence.Entities
         public bool IsVegan { get; set; }
         public Guid DoughTypeId { get; set; }
         [ForeignKey("DoughTypeId")]
-        public DoughTypeEntity DoughType { get; set; }
+        public DoughTypeEntity DoughTypeEntity { get; set; }
         public Guid SizeId { get; set; }
         [ForeignKey("SizeId")]
         public SizeEntity SizeEntity { get; set; }

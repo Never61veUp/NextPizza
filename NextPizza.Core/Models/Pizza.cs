@@ -33,7 +33,7 @@ public class Pizza : Product
     public static Result<Pizza> CreateExisting(Guid id, string title, decimal price, bool isNewProduct, string imageUrl,
         IReadOnlyList<string> ingredients, Size size, DoughType doughType, bool isVegan)
     {
-        if (CheckResult(title, price, ingredients, out var exception)) return exception;
+        //if (CheckResult(title, price, ingredients, out var exception)) return exception;
 
         var pizza = new Pizza(id, title, price, isNewProduct, imageUrl, ingredients, size, isVegan, doughType);
         return Result.Success(pizza);

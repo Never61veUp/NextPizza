@@ -19,7 +19,11 @@ namespace NextPizza.Application.Services
             _productsRepository.CreatePizza(product);
             return Result.Success(product);
         }
-        
+
+        public Task<Result<IEnumerable<Product>>> GetAllProducts()
+        {
+            return _productsRepository.GetAllProducts();
+        }
     }
 
 }

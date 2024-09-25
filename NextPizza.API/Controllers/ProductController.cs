@@ -53,6 +53,13 @@ namespace NextPizza.API.Controllers
 
             return Ok("Successful product addition");
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllProducts()
+        {
+            var products = await _productService.GetAllProducts();
+            return Ok(products.Value);
+        }
     }
 
 
