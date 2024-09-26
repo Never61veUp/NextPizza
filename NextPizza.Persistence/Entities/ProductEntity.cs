@@ -7,12 +7,11 @@ using NextPizza.Core.Models;
 
 namespace NextPizza.Persistence.Entities
 {
-    public abstract class ProductEntity : Entity
+    public class ProductEntity : Entity
     {
-        public string? Title { get; set; }
+        public string? Title { get; set; } =  string.Empty;
         public decimal Price { get; set; }
         public bool IsNewProduct { get; set; }
-
-        protected abstract Product CreateExtended(ProductEntity product);
+        
     }
 }

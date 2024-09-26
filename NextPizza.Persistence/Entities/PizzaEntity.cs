@@ -15,14 +15,5 @@ namespace NextPizza.Persistence.Entities
         [ForeignKey("SizeId")]
         public SizeEntity SizeEntity { get; set; }
 
-        private List<string> a = new List<string>()
-        {
-            "d"
-        };
-
-        protected override Product CreateExtended(ProductEntity product)
-        {
-            return Pizza.CreateExisting(Id, Title, Price, IsNewProduct, "", a, );
-        }
     }
 }

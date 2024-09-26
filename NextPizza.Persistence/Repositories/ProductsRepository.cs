@@ -11,28 +11,56 @@ public class ProductsRepository : IProductsRepository
 //подумать о продукте
 {
     private readonly NextPizzaDbContext _context;
+    private readonly IDoughTypeRepository _doughTypeRepository;
+    private readonly ISizeRepository _sizeRepository;
 
-    public ProductsRepository(NextPizzaDbContext context)
+    public ProductsRepository(NextPizzaDbContext context, IDoughTypeRepository doughTypeRepository, ISizeRepository sizeRepository)
     {
         _context = context;
+        _doughTypeRepository = doughTypeRepository;
+        _sizeRepository = sizeRepository;
     }
 
 
     public async Task<Result<IEnumerable<Product>>> GetAllProducts()
     {
-        DrinkEntity drink = new DrinkEntity();
         var b = new List<string>()
         {
             "d"
         };
-        var getProducts = await _context.Products.ToListAsync();
-
-        var a = getProducts.Select(p => drink.ToDrink(getProducts.)).ToList();
-
-        foreach (var VARIABLE in getProducts)
+         var products = await _context.Products.AsNoTracking().ToListAsync();
+        List<Product> combinedList = new List<Product>();
+        foreach (var product in products)
         {
-            VARIABLE.To
+            if (product is DrinkEntity)
+            { 
+                var drink = product as DrinkEntity;
+                combinedList.Add((Product)Drink.CreateExisting(drink.Id, drink.Title, drink.Price, drink.IsNewProduct,
+                    imageUrl: "", drink.IsAlcoholic, drink.VolumeInLiters).Value);
+            }
+
+            if (product is PizzaEntity)
+            {
+                var pizza = product as PizzaEntity;
+                var doughType = await _doughTypeRepository.GetById(pizza.DoughTypeId);
+                var size = await _sizeRepository.GetById(pizza.SizeId);
+                
+                combinedList.Add((Product)Pizza.CreateExisting(pizza.Id, pizza.Title, pizza.Price, pizza.IsNewProduct, 
+                    "", b, size.Value , doughType.Value, pizza.IsVegan).Value);
+            }
         }
+
+
+        
+
+
+
+
+
+
+
+
+
 
 
 
@@ -54,7 +82,7 @@ public class ProductsRepository : IProductsRepository
         //            .Select(b => DoughType.CreateExisting(b.Id, b.Title, b.ThicknessInCm).Value).FirstOrDefault(), p.IsVegan).Value)
         //    );
 
-        //return Result.Success<IEnumerable<Product>>(combinedList);
+        return Result.Success<IEnumerable<Product>>(combinedList);
     }
 
 

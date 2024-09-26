@@ -54,7 +54,7 @@ public class DoughTypeRepository : IDoughTypeRepository
         if (doughTypeEntity == null)
             return Result.Failure<DoughType>("Dough type not found");
 
-        return Result.Success(MapToDoughType(doughTypeEntity));
+        return Result.Success(MapToDoughType(doughTypeEntity)).Value;
     }
     public async Task<Result<DoughType>> Update(Guid id, DoughType doughType)
     {
